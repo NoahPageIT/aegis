@@ -1,0 +1,12 @@
+{
+  "name": "aegis",
+  "version": "1.0.0",
+  "description": "LLM Security Test Harness — red-teams LLM apps against the OWASP LLM Top 10",
+  "scripts": {
+    "scan": "node cli.js vulnerable",
+    "scan:hardened": "node cli.js hardened",
+    "dashboard": "node server.js"
+  },
+  "keywords": ["llm-security", "owasp", "prompt-injection", "ai-security", "red-team"],
+  "license": "MIT"
+}

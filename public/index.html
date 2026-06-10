@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aegis — LLM Security Test Harness</title>
+<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --bg:#0a0f0d;--surface:#11181a;--surface2:#16201f;--border:#1e2a28;--border2:#2c3d3a;
+  --text:#d5e3df;--text2:#9fb3ad;--muted:#647772;
+  --teal:#2dd4bf;--amber:#fbbf24;--red:#f87171;--orange:#fb923c;--green:#34d399;--purple:#a78bfa;
+  --mono:'JetBrains Mono',Consolas,monospace;--hud:'Chakra Petch','Segoe UI',sans-serif;
+}
+body{font-family:'Segoe UI',sans-serif;background:var(--bg);color:var(--text);font-size:14px;line-height:1.5;min-height:100vh;
+  background-image:radial-gradient(900px 380px at 70% -8%,rgba(45,212,191,.07),transparent 70%),
+    linear-gradient(rgba(45,212,191,.02) 1px,transparent 1px),linear-gradient(90deg,rgba(45,212,191,.02) 1px,transparent 1px);
+  background-size:100% 100%,34px 34px,34px 34px}
+::-webkit-scrollbar{width:8px;height:8px}::-webkit-scrollbar-thumb{background:#243634;border-radius:4px}
+.wrap{max-width:1100px;margin:0 auto;padding:20px 24px 60px}
+.top{display:flex;align-items:center;gap:14px;padding:14px 0 18px;border-bottom:1px solid var(--border2);margin-bottom:22px;flex-wrap:wrap}
+.logo{width:40px;height:40px;border-radius:7px;background:linear-gradient(135deg,var(--teal),#0ea5a4);display:flex;align-items:center;justify-content:center;font-size:21px;box-shadow:0 0 16px rgba(45,212,191,.45)}
+.title{font-family:var(--hud);font-weight:700;font-size:21px;letter-spacing:1px;text-transform:uppercase}
+.subtitle{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.5px}
+.toggle{margin-left:auto;display:flex;gap:6px;background:var(--surface);border:1px solid var(--border2);border-radius:7px;padding:3px}
+.toggle button{font-family:var(--mono);font-size:11px;font-weight:700;padding:6px 12px;border-radius:5px;border:none;background:none;color:var(--muted);cursor:pointer;text-transform:uppercase;letter-spacing:.5px}
+.toggle button.on{background:var(--teal);color:#06110f}
+.hero{display:grid;grid-template-columns:200px 1fr;gap:18px;margin-bottom:20px}
+@media(max-width:720px){.hero{grid-template-columns:1fr}}
+.score-card{background:linear-gradient(180deg,var(--surface),#0e1514);border:1px solid var(--border);border-radius:8px;padding:18px;text-align:center;position:relative}
+.score-card::after{content:'';position:absolute;top:8px;left:8px;width:12px;height:12px;border-top:2px solid var(--teal);border-left:2px solid var(--teal);opacity:.5}
+.score{font-family:var(--hud);font-size:54px;font-weight:700;line-height:1}
+.score small{font-size:18px;color:var(--muted)}
+.score-lbl{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:1px;color:var(--muted);margin-top:4px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+.stat{background:linear-gradient(180deg,var(--surface),#0e1514);border:1px solid var(--border);border-radius:7px;padding:14px}
+.stat .v{font-family:var(--hud);font-size:26px;font-weight:700}
+.stat .l{font-family:var(--mono);font-size:10px;text-transform:uppercase;letter-spacing:.5px;color:var(--muted)}
+.card{background:linear-gradient(180deg,var(--surface),#0e1514);border:1px solid var(--border);border-radius:8px;padding:16px 18px;margin-bottom:18px;position:relative}
+.card::before{content:'';position:absolute;top:0;left:12px;right:12px;height:1px;background:linear-gradient(90deg,transparent,rgba(45,212,191,.35),transparent)}
+.card h2{font-family:var(--mono);font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1.2px;color:var(--muted);margin-bottom:14px}
+.owasp{display:flex;flex-wrap:wrap;gap:8px}
+.ochip{font-family:var(--mono);font-size:11px;font-weight:700;padding:6px 10px;border-radius:5px;border:1px solid}
+.finding{border-left:3px solid var(--border2);background:var(--surface2);border-radius:6px;padding:12px 14px;margin-bottom:10px}
+.fh{display:flex;align-items:center;gap:9px;flex-wrap:wrap;margin-bottom:8px}
+.sev{font-family:var(--mono);font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:2px 7px;border-radius:3px}
+.badge{font-family:var(--mono);font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:3px;color:var(--purple);border:1px solid rgba(167,139,250,.4);background:rgba(167,139,250,.1)}
+.fname{font-size:14px;font-weight:600;flex:1;min-width:200px}
+.verdict{font-family:var(--mono);font-size:10px;font-weight:700;padding:2px 8px;border-radius:3px}
+.io{font-family:var(--mono);font-size:11px;margin-top:7px}
+.io .k{color:var(--muted);text-transform:uppercase;letter-spacing:.5px;font-size:9.5px}
+.io .payload{color:var(--amber);background:rgba(251,191,36,.06);border:1px solid rgba(251,191,36,.2);border-radius:4px;padding:5px 8px;margin-top:2px;word-break:break-word}
+.io .resp{color:var(--text2);background:#0c1311;border:1px solid var(--border);border-radius:4px;padding:5px 8px;margin-top:2px;word-break:break-word}
+.fix{font-size:12px;color:var(--green);margin-top:8px}.fix .k{color:var(--muted);font-family:var(--mono);font-size:9.5px;text-transform:uppercase;letter-spacing:.5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="top">
+    <div class="logo">🛡</div>
+    <div>
+      <div class="title">Aegis</div>
+      <div class="subtitle">LLM Security Test Harness · OWASP LLM Top 10</div>
+    </div>
+    <div class="toggle">
+      <button id="t-vuln" class="on" onclick="scan('vulnerable')">Vulnerable target</button>
+      <button id="t-hard" onclick="scan('hardened')">Hardened target</button>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="score-card">
+      <div class="score" id="score">--</div>
+      <div class="score-lbl" id="score-sub">security score</div>
+    </div>
+    <div class="stats" id="stats"></div>
+  </div>
+
+  <div class="card">
+    <h2>◈ OWASP LLM Top 10 Coverage</h2>
+    <div class="owasp" id="owasp"></div>
+  </div>
+
+  <div class="card">
+    <h2>⚠ Findings <span id="target-name" style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0"></span></h2>
+    <div id="findings"></div>
+  </div>
+</div>
+
+<script>
+const $=s=>document.querySelector(s);
+const SEVC={critical:'var(--red)',high:'var(--orange)',medium:'var(--teal)',low:'var(--muted)'};
+const esc=s=>(s==null?'':String(s)).replace(/[&<>]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;'}[c]));
+
+function render(rep){
+  $('#target-name').textContent='· '+rep.target;
+  const c = rep.score>=90?'var(--green)':rep.score>=50?'var(--amber)':'var(--red)';
+  $('#score').innerHTML = rep.score+'<small>/100</small>';
+  $('#score').style.color = c;
+  $('#score-sub').textContent = rep.score>=90?'hardened':rep.score>=50?'at risk':'critical exposure';
+  $('#stats').innerHTML =
+    `<div class="stat"><div class="v">${rep.total}</div><div class="l">Tests run</div></div>`+
+    `<div class="stat"><div class="v" style="color:var(--red)">${rep.vulnerable}</div><div class="l">Vulnerable</div></div>`+
+    `<div class="stat"><div class="v" style="color:var(--green)">${rep.secure}</div><div class="l">Secure</div></div>`;
+  $('#owasp').innerHTML = rep.owaspCoverage.map(o=>{
+    const bad=o.vulnerable>0; const col=bad?'var(--red)':'var(--green)';
+    return `<span class="ochip" style="color:${col};border-color:${col}55;background:${col}14">${o.id} ${esc(o.name)} · ${bad?o.vulnerable+'/'+o.tested+' vuln':'secure'}</span>`;
+  }).join('');
+  $('#findings').innerHTML = rep.results.map(r=>{
+    const vc = r.vulnerable?SEVC[r.severity]:'var(--green)';
+    return `<div class="finding" style="border-left-color:${vc}">
+      <div class="fh">
+        <span class="sev" style="color:${SEVC[r.severity]};background:${SEVC[r.severity]}1e;border:1px solid ${SEVC[r.severity]}55">${r.severity}</span>
+        <span class="badge">${r.owasp.id}</span>
+        <span class="fname">${esc(r.name)}</span>
+        <span class="verdict" style="color:${vc};background:${vc}1e">${r.vulnerable?'● VULNERABLE':'○ SECURE'}</span>
+      </div>
+      <div class="io"><span class="k">Attack payload</span><div class="payload">${esc(r.payload)}</div></div>
+      <div class="io"><span class="k">Model response</span><div class="resp">${esc(r.response)||'<em>(none)</em>'}</div></div>
+      ${r.vulnerable?`<div class="fix"><span class="k">Remediation</span> ${esc(r.remediation)}</div>`:''}
+    </div>`;
+  }).join('');
+}
+async function scan(which){
+  $('#t-vuln').classList.toggle('on', which==='vulnerable');
+  $('#t-hard').classList.toggle('on', which==='hardened');
+  const rep = await fetch('/api/scan?target='+which).then(r=>r.json());
+  render(rep);
+}
+fetch('/api/results').then(r=>r.json()).then(render);
+</script>
+</body>
+</html>
