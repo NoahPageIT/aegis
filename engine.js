@@ -1,4 +1,4 @@
-// Aegis — scan engine. Runs every test against a target, detects vulnerabilities, scores 0-100.
+// Aegis - scan engine. Runs every test against a target, detects vulnerabilities, scores 0-100.
 const { TESTS } = require('./tests');
 const SEV = { critical: 4, high: 3, medium: 2, low: 1 };
 

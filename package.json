@@ -1,7 +1,7 @@
 {
   "name": "aegis",
   "version": "1.0.0",
-  "description": "LLM Security Test Harness — red-teams LLM apps against the OWASP LLM Top 10",
+  "description": "LLM Security Test Harness - red-teams LLM apps against the OWASP LLM Top 10",
   "scripts": {
     "scan": "node cli.js vulnerable",
     "scan:hardened": "node cli.js hardened",

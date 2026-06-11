@@ -1,4 +1,4 @@
-// Aegis — report server (zero dependencies: raw Node http + fs).
+// Aegis - report server (zero dependencies: raw Node http + fs).
 // Serves the HUD report dashboard and runs scans on demand.
 const http = require('http');
 const fs = require('fs');
@@ -35,4 +35,4 @@ http.createServer(async (req, res) => {
     return fs.createReadStream(full).pipe(res);
   }
   res.writeHead(404); res.end('Not found');
-}).listen(PORT, () => console.log(`\n  🛡  Aegis — LLM Security Test Harness → http://localhost:${PORT}\n`));
+}).listen(PORT, () => console.log(`\n  🛡  Aegis - LLM Security Test Harness → http://localhost:${PORT}\n`));

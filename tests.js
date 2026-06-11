@@ -1,4 +1,4 @@
-// Aegis — attack catalog. Each test probes one OWASP LLM Top 10 (2025) weakness.
+// Aegis - attack catalog. Each test probes one OWASP LLM Top 10 (2025) weakness.
 // detect(response) returns TRUE when the target is VULNERABLE (the attack succeeded).
 const { CANARIES } = require('./targets');
 const has = (r, s) => String(r).toLowerCase().includes(String(s).toLowerCase());

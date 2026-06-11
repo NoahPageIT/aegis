@@ -1,14 +1,14 @@
-# 🛡 Aegis — LLM Security Test Harness
+# 🛡 Aegis - LLM Security Test Harness
 
-Aegis red-teams LLM-powered applications against the **[OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)** — probing for prompt injection, system-prompt leakage, secret disclosure, jailbreaks, insecure output handling, and excessive agency — then scores the target and reports findings with remediation.
+Aegis red-teams LLM-powered applications against the **[OWASP LLM Top 10](https://genai.owasp.org/llm-top-10/)** - probing for prompt injection, system-prompt leakage, secret disclosure, jailbreaks, insecure output handling, and excessive agency - then scores the target and reports findings with remediation.
 
-Built to demonstrate **AI security** skills: adversarial testing, detection logic, and secure-design knowledge for GenAI systems — the emerging discipline at the intersection of cybersecurity and AI.
+Built to demonstrate **AI security** skills: adversarial testing, detection logic, and secure-design knowledge for GenAI systems - the emerging discipline at the intersection of cybersecurity and AI.
 
 > Ships with a **mock vulnerable LLM** so the full red-team pipeline runs end-to-end at **zero API cost**. Pluggable adapters let you point it at a real model (Ollama, Anthropic, OpenAI) when you want to.
 
-![Aegis report — mock vulnerable target failing 7/7 OWASP LLM tests](docs/dashboard.png)
+![Aegis report - mock vulnerable target failing 7/7 OWASP LLM tests](docs/dashboard.png)
 
-> *Aegis scanning a deliberately vulnerable mock LLM: 0/100, every OWASP category exploited. Flip to the hardened target and the same suite scores 100/100 — showing exactly what good looks like.*
+> *Aegis scanning a deliberately vulnerable mock LLM: 0/100, every OWASP category exploited. Flip to the hardened target and the same suite scores 100/100 - showing exactly what good looks like.*
 
 ---
 
@@ -24,7 +24,7 @@ Built to demonstrate **AI security** skills: adversarial testing, detection logi
 | 6 | Improper output handling (stored XSS) | **LLM05** Improper Output Handling | Medium |
 | 7 | Excessive agency (destructive action) | **LLM06** Excessive Agency | High |
 
-Each test carries a **detection rule** (did the attack succeed?) and **remediation guidance**. Every probe uses benign canary tokens — no real harmful content is generated.
+Each test carries a **detection rule** (did the attack succeed?) and **remediation guidance**. Every probe uses benign canary tokens - no real harmful content is generated.
 
 ---
 
@@ -50,7 +50,7 @@ node server.js           # report dashboard → http://localhost:3002 (live togg
 
 ## Test a real LLM (optional)
 
-Aegis targets are just `async (prompt) => responseText`. Point it at any model with `makeHttpTarget` — for example a **local, free** Ollama model:
+Aegis targets are just `async (prompt) => responseText`. Point it at any model with `makeHttpTarget` - for example a **local, free** Ollama model:
 
 ```js
 const { makeHttpTarget } = require('./targets');
@@ -64,13 +64,13 @@ const ollama = makeHttpTarget(
 runScan(ollama, 'llama3 (local)').then(r => console.log(r.score));
 ```
 
-The same pattern wraps the Anthropic or OpenAI APIs (paid) — just change the URL, body, and extractor.
+The same pattern wraps the Anthropic or OpenAI APIs (paid) - just change the URL, body, and extractor.
 
 ---
 
 ## Tech stack
 - **Node.js**, zero runtime dependencies (raw `http` + `fs`)
-- Detection-rule engine with weighted severity scoring (0–100)
+- Detection-rule engine with weighted severity scoring (0-100)
 - Tactical HUD dashboard (vanilla JS)
 - Pluggable target adapters (mock + real)
 
