@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Aegis - Automated AI Security Testing</title>
+<meta name="description" content="Aegis red-teams your AI features against the OWASP LLM Top 10 and tells you exactly what to fix. Join the waitlist." />
+<style>
+  :root { --bg:#0b0f14; --panel:#121821; --line:#1f2a37; --text:#e6edf3; --muted:#8b97a7; --accent:#3ddc97; --danger:#ff5d5d; }
+  * { box-sizing:border-box; margin:0; padding:0; }
+  body { background:var(--bg); color:var(--text); font:16px/1.6 -apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:920px; margin:0 auto; padding:0 20px; }
+  header { padding:22px 0; display:flex; align-items:center; justify-content:space-between; border-bottom:1px solid var(--line); }
+  .brand { font-weight:700; letter-spacing:.3px; }
+  .brand span { color:var(--accent); }
+  .hero { padding:72px 0 48px; text-align:center; }
+  .hero h1 { font-size:44px; line-height:1.15; margin-bottom:18px; }
+  .hero h1 b { color:var(--accent); }
+  .hero p { color:var(--muted); font-size:19px; max-width:640px; margin:0 auto 28px; }
+  .form { display:flex; gap:10px; max-width:480px; margin:0 auto; }
+  .form input { flex:1; padding:14px 16px; border-radius:10px; border:1px solid var(--line); background:var(--panel); color:var(--text); font-size:16px; }
+  .btn { padding:14px 22px; border-radius:10px; border:0; background:var(--accent); color:#04130c; font-weight:700; cursor:pointer; font-size:16px; }
+  .note { color:var(--muted); font-size:13px; margin-top:12px; }
+  section { padding:48px 0; border-top:1px solid var(--line); }
+  h2 { font-size:26px; margin-bottom:18px; }
+  .grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:16px; }
+  .card { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:18px; }
+  .card h3 { font-size:16px; margin-bottom:6px; }
+  .card p { color:var(--muted); font-size:14px; }
+  .steps { counter-reset:s; display:grid; gap:14px; }
+  .step { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:16px 18px; position:relative; }
+  .step::before { counter-increment:s; content:counter(s); color:var(--accent); font-weight:700; margin-right:10px; }
+  .price { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:16px; }
+  .tier { background:var(--panel); border:1px solid var(--line); border-radius:12px; padding:22px; }
+  .tier.featured { border-color:var(--accent); }
+  .tier .amt { font-size:30px; font-weight:800; margin:6px 0 4px; }
+  .tier ul { list-style:none; margin-top:12px; }
+  .tier li { color:var(--muted); font-size:14px; padding:4px 0; }
+  footer { padding:36px 0; color:var(--muted); font-size:13px; text-align:center; border-top:1px solid var(--line); }
+  .tag { display:inline-block; font-size:12px; color:var(--accent); border:1px solid var(--accent); border-radius:999px; padding:3px 10px; margin-bottom:18px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div class="brand">AEGIS<span>.</span></div>
+    <div class="muted">by @noahpageit</div>
+  </header>
+
+  <div class="hero">
+    <div class="tag">OWASP LLM Top 10</div>
+    <h1>Ship AI features without getting <b>breached</b> or <b>embarrassed</b>.</h1>
+    <p>Aegis red-teams your AI app the way an attacker would, scores it 0 to 100 against the OWASP LLM Top 10, and tells you exactly what to fix. Automated, repeatable, in minutes.</p>
+    <form class="form js-waitlist" method="POST">
+      <input type="email" name="email" placeholder="you@company.com" required />
+      <button class="btn" type="submit">Get early access</button>
+    </form>
+    <div class="note js-note">Join the waitlist. Founding users get lifetime-discounted pricing.</div>
+  </div>
+
+  <section>
+    <h2>The problem</h2>
+    <p class="muted">Every team is racing to ship AI features. Prompt injection, system-prompt leakage, secret disclosure, jailbreaks, and over-permissioned agents are shipping right alongside them. Most teams have no way to test for any of it before it hits production.</p>
+  </section>
+
+  <section>
+    <h2>What Aegis checks</h2>
+    <div class="grid">
+      <div class="card"><h3>Prompt injection</h3><p>Direct and indirect injection that overrides your system instructions (LLM01).</p></div>
+      <div class="card"><h3>System prompt leakage</h3><p>Attempts to extract your hidden instructions and configuration (LLM07).</p></div>
+      <div class="card"><h3>Sensitive disclosure</h3><p>Coaxing out API keys, secrets, and private data (LLM02).</p></div>
+      <div class="card"><h3>Jailbreaks</h3><p>Role-play and DAN-style attacks that bypass your guardrails (LLM01).</p></div>
+      <div class="card"><h3>Improper output handling</h3><p>Model output that becomes stored XSS or injection downstream (LLM05).</p></div>
+      <div class="card"><h3>Excessive agency</h3><p>Agents taking destructive actions they should never be allowed to (LLM06).</p></div>
+    </div>
+  </section>
+
+  <section>
+    <h2>How it works</h2>
+    <div class="steps">
+      <div class="step">Point Aegis at your AI endpoint. No SDK, no code changes. It works against any model (Anthropic, OpenAI, or your own).</div>
+      <div class="step">Aegis runs the attack suite with benign canary tokens. Nothing harmful is generated.</div>
+      <div class="step">You get a 0 to 100 security score, a pass/fail per OWASP category, and specific remediation for each finding.</div>
+      <div class="step">Re-run on every release. Catch regressions before your users (or attackers) do.</div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Pricing</h2>
+    <div class="price">
+      <div class="tier">
+        <div>Open Core</div><div class="amt">$0</div>
+        <div class="muted">Self-hosted CLI</div>
+        <ul><li>7 OWASP LLM tests</li><li>Local scoring + report</li><li>Bring your own model</li></ul>
+      </div>
+      <div class="tier featured">
+        <div>Pro</div><div class="amt">$199<span style="font-size:14px">/mo</span></div>
+        <div class="muted">For teams shipping AI</div>
+        <ul><li>Hosted scans + PDF reports</li><li>Scheduled + CI scans</li><li>Multiple targets</li><li>Regression alerts</li></ul>
+      </div>
+      <div class="tier">
+        <div>Business</div><div class="amt">$999<span style="font-size:14px">/mo</span></div>
+        <div class="muted">For products at scale</div>
+        <ul><li>Everything in Pro</li><li>SARIF export + compliance reports</li><li>Multi-turn attack chains</li><li>Priority support</li></ul>
+      </div>
+    </div>
+    <p class="note">Pricing is indicative for waitlist members and will be finalized at launch.</p>
+  </section>
+
+  <section style="text-align:center">
+    <h2>Be a founding user</h2>
+    <p class="muted" style="margin-bottom:22px">Early access, direct line to the founder, and locked-in pricing.</p>
+    <form class="form js-waitlist" method="POST">
+      <input type="email" name="email" placeholder="you@company.com" required />
+      <button class="btn" type="submit">Join the waitlist</button>
+    </form>
+    <div class="note js-note">No spam. One email when early access opens.</div>
+  </section>
+
+  <footer>
+    Aegis is defensive security tooling. Test only systems you own or are authorized to assess.<br/>
+    Built in public by <b>@noahpageit</b>.
+  </footer>
+</div>
+
+<script>
+  // ====================================================================
+  //  WAITLIST SETUP - ONE LINE TO GO LIVE
+  //  1. Make a free form at https://formspree.io (use noahpage4@gmail.com)
+  //  2. Copy your form ID (looks like "xyzabcde") from the form's endpoint
+  //  3. Paste it between the quotes below. That's it.
+  // ====================================================================
+  var FORMSPREE_ID = "REPLACE_ME";
+
+  document.querySelectorAll(".js-waitlist").forEach(function (form) {
+    var note = form.parentElement.querySelector(".js-note");
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      var btn = form.querySelector("button");
+      var email = form.querySelector("input").value;
+
+      // Fallback: works with zero setup. Opens a pre-filled email so the
+      // page captures interest the moment it is live. Add a FORMSPREE_ID
+      // above to upgrade to the smooth inline confirmation flow.
+      if (FORMSPREE_ID === "REPLACE_ME") {
+        var subject = encodeURIComponent("Aegis waitlist");
+        var body = encodeURIComponent("I want early access to Aegis.\nEmail: " + email);
+        window.location.href =
+          "mailto:npage.it@gmail.com?subject=" + subject + "&body=" + body;
+        form.innerHTML =
+          '<div style="color:var(--accent);font-weight:700;padding:14px 0">' +
+          "Thanks. Send the email that just opened and you're on the list.</div>";
+        return;
+      }
+
+      btn.disabled = true;
+      btn.textContent = "...";
+      fetch("https://formspree.io/f/" + FORMSPREE_ID, {
+        method: "POST",
+        headers: { Accept: "application/json" },
+        body: new FormData(form),
+      })
+        .then(function (r) {
+          if (r.ok) {
+            form.innerHTML =
+              '<div style="color:var(--accent);font-weight:700;padding:14px 0">' +
+              "You're on the list. Check " + email + " for confirmation.</div>";
+          } else {
+            btn.disabled = false;
+            btn.textContent = "Try again";
+            if (note) note.textContent = "Something went wrong. Please try again.";
+          }
+        })
+        .catch(function () {
+          btn.disabled = false;
+          btn.textContent = "Try again";
+          if (note) note.textContent = "Network error. Please try again.";
+        });
+    });
+  });
+</script>
+</body>
+</html>
