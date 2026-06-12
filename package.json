@@ -8,6 +8,12 @@
     "dashboard": "node server.js",
     "start": "node server.js"
   },
-  "keywords": ["llm-security", "owasp", "prompt-injection", "ai-security", "red-team"],
+  "keywords": [
+    "llm-security",
+    "owasp",
+    "prompt-injection",
+    "ai-security",
+    "red-team"
+  ],
   "license": "MIT"
 }
