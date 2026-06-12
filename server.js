@@ -6,7 +6,7 @@ const path = require('path');
 const { vulnerable, hardened } = require('./targets');
 const { runScan } = require('./engine');
 
-const PORT = 3002;
+const PORT = process.env.PORT || 3002;
 const PUBLIC = path.join(__dirname, 'public');
 const RESULTS = path.join(__dirname, 'data', 'results.json');
 const MIME = { '.html': 'text/html', '.js': 'text/javascript', '.css': 'text/css' };
