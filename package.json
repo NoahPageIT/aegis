@@ -5,7 +5,8 @@
   "scripts": {
     "scan": "node cli.js vulnerable",
     "scan:hardened": "node cli.js hardened",
-    "dashboard": "node server.js"
+    "dashboard": "node server.js",
+    "start": "node server.js"
   },
   "keywords": ["llm-security", "owasp", "prompt-injection", "ai-security", "red-team"],
   "license": "MIT"
